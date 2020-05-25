@@ -1,0 +1,97 @@
+<mat-toolbar color="primary">
+  <h1>Github User Search Exercise</h1>
+  <div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a mat-menu-item href="https://twitter.com/erik_slack" rel="noreferrer" target="_blank">
+        <fa-icon [icon]="faTwitter"></fa-icon>
+        <span>Follow Me On Twitter</span>
+      </a>
+      <a href="https://www.linkedin.com/in/erikslack/" rel="noreferrer" target="_blank" mat-menu-item>
+        <fa-icon [icon]="faLinkedin"></fa-icon>
+        <span>Connect With Me on Linked In</span>
+      </a>
+      <a href="https://github.com/erik-slack" rel="noreferrer" target="_blank" mat-menu-item>
+        <fa-icon [icon]="faGithub"></fa-icon>
+        <span>See public code on Github</span>
+      </a>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+
+<main>
+  <h1>Search Users on Github</h1>
+  <div class="search-container">
+    <mat-form-field color="primary" appearance="outline">
+      <mat-label>User's Name</mat-label>
+      <input matInput placeholder="Placeholder" [formControl]="searchControl" color="primary">
+      <mat-icon matSuffix>search</mat-icon>
+      <mat-hint>This uses Github's official api.</mat-hint>
+    </mat-form-field>
+    <div class="buttons-container">
+      <button mat-stroked-button
+        color="primary"
+        (click)="resetBtnClicked()">
+        Reset
+      </button>
+      <button mat-stroked-button
+        color="primary"
+        (click)="searchBtnClicked()">
+        Search
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="(usersLoaded$ | async); else loadingTempate">
+    <h1 id="search-results" class="search-results-title">
+      Search Results
+      <div class="custom-badge" aria-describedby="search-results">
+        {{totalCount$ | async}}
+      </div>
+    </h1>
+    <div class="search-results-container"
+      infinite-scroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="150"
+      (scrolled)="searchResultsScrolled()">
+      <div class="result"
+        *ngFor="let user of users$ | async"
+        tabindex="0"
+        matRipple 
+        [matRippleCentered]="true"
+        (click)="userClicked(user)"
+        (keydown.enter)="userClicked(user)">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>{{user.login}}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image [src]="user.avatar_url" alt="Avatar of {{user.login}}">
+        </mat-card>
+      </div>
+    </div>
+    <ng-container *ngTemplateOutlet="loadingTempate"></ng-container>
+  </ng-container>
+</main>
+
+<footer>
+  <h5>
+    This is just an example project made by 
+    <a href="https://www.linkedin.com/in/erikslack/" rel="noreferrer" target="_blank">
+      Erik Slack
+    </a>
+    It does not represent Github.
+  </h5>
+</footer>
+
+<ng-template #loadingTempate>
+  <div class="spinner-container" *ngIf="loadingResults">
+    <mat-progress-spinner	
+      [color]="'primary'"	
+      [mode]="'indeterminate'"	
+      [diameter]="60">
+    </mat-progress-spinner>
+    <div>Loading More Results</div>
+  </div>
+</ng-template>

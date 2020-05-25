@@ -1,0 +1,33 @@
+{
+  "npmScope": "github-user-search",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "gh-user-search": {
+      "tags": []
+    },
+    "gh-user-search-e2e": {
+      "tags": [],
+      "implicitDependencies": ["gh-user-search"]
+    },
+    "shared-state-users-state": {
+      "tags": ["scope:shared", "type:state"]
+    }
+  }
+}

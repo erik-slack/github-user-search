@@ -1,0 +1,51 @@
+<div mat-dialog-title class="dialog-title-container">
+  <h1>
+    {{user.name}} ({{user.login}}) 
+  </h1>
+  <a [href]="user.html_url" target="_blank">
+    <mat-icon>open_in_new</mat-icon>
+  </a>
+</div>
+<div mat-dialog-content>
+  <img [src]="user.avatar_url" alt="Avatar of {{user.login}}">
+  <div class="info-line">
+    <span class="info-label">Location:</span>
+    <span class="info-value">{{user.location}}</span>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Company:</span>
+    <span class="info-value">{{user.company}}</span>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Email:</span>
+    <a href="mailto:{{user.email}}" class="info-value">{{user.email}}</a>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Hireable:</span>
+    <span class="info-value">{{user.hireable ? 'available' : 'unavailable'}}</span>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Blog:</span>
+    <a [href]="user.blog" class="info-value" target="_blank">{{user.blog}}</a>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Bio:</span>
+    <p class="info-value">{{user.bio}}</p>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Followers:</span>
+    <p class="info-value">{{user.followers}}</p>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Following:</span>
+    <p class="info-value">{{user.following}}</p>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Public Repos:</span>
+    <p class="info-value">{{user.public_repos}}</p>
+  </div>
+  <div class="info-line">
+    <span class="info-label">Public Gists:</span>
+    <p class="info-value">{{user.public_gists}}</p>
+  </div>
+</div>

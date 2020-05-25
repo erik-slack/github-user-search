@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "erik-slack-github-search"
+  },
+  "targets": {
+    "erik-slack-github-search": {
+      "hosting": {
+        "search": [
+          "erik-slack-github-search"
+        ]
+      }
+    }
+  }
+}

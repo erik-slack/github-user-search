@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "projects": {
+    "gh-user-search": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/gh-user-search",
+      "sourceRoot": "apps/gh-user-search/src",
+      "prefix": "github-user-search",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/gh-user-search",
+            "index": "apps/gh-user-search/src/index.html",
+            "main": "apps/gh-user-search/src/main.ts",
+            "polyfills": "apps/gh-user-search/src/polyfills.ts",
+            "tsConfig": "apps/gh-user-search/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/gh-user-search/src/favicon.ico",
+              "apps/gh-user-search/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "apps/gh-user-search/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/gh-user-search/src/environments/environment.ts",
+                  "with": "apps/gh-user-search/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "gh-user-search:build",
+            "port": 4210
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "gh-user-search:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "gh-user-search:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/gh-user-search/tsconfig.app.json",
+              "apps/gh-user-search/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/gh-user-search/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/gh-user-search/jest.config.js",
+            "tsConfig": "apps/gh-user-search/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/gh-user-search/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "gh-user-search-e2e": {
+      "root": "apps/gh-user-search-e2e",
+      "sourceRoot": "apps/gh-user-search-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/gh-user-search-e2e/cypress.json",
+            "tsConfig": "apps/gh-user-search-e2e/tsconfig.e2e.json",
+            "devServerTarget": "gh-user-search:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "gh-user-search:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/gh-user-search-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/gh-user-search-e2e/**"]
+          }
+        }
+      }
+    },
+    "shared-state-users-state": {
+      "projectType": "library",
+      "root": "libs/shared/state/users-state",
+      "sourceRoot": "libs/shared/state/users-state/src",
+      "prefix": "github-user-search",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/state/users-state/tsconfig.lib.json",
+              "libs/shared/state/users-state/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/state/users-state/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/state/users-state/jest.config.js",
+            "tsConfig": "libs/shared/state/users-state/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/state/users-state/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "gh-user-search"
+}
