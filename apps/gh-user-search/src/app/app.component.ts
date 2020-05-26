@@ -23,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   detailLoaded$: Observable<boolean>;
   totalCount$: Observable<number>;
   error$: Observable<any>;
+  hasNoMoreResults$: Observable<boolean>;
   nextPage = 2;
   loadingResults = false;
   faLinkedin = faLinkedin;
@@ -47,6 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.detailLoaded$ = this.usersFacade.detailLoaded$;
     this.totalCount$ = this.usersFacade.totalCount$;
     this.error$ = this.usersFacade.error$;
+    this.hasNoMoreResults$ = this.usersFacade.hasNoMoreResults$;
 
     this.searchControl.valueChanges
       .pipe(

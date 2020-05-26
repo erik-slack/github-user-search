@@ -31,6 +31,11 @@ export const getUsersEntities = createSelector(getUsersState, (state: State) =>
   selectEntities(state)
 );
 
+export const getIds = createSelector(
+  getUsersState,
+  (state: State) => state.ids
+);
+
 export const getSelectedId = createSelector(
   getUsersState,
   (state: State) => state.selectedId
@@ -50,5 +55,12 @@ export const getUserDetailLoaded = createSelector(
 export const getTotalCount = createSelector(
   getUsersState,
   (state: State) => state.totalCount
+);
+
+
+export const getHasNoMoreResults = createSelector(
+  getTotalCount,
+  getIds,
+  (totalCount, ids) => totalCount <= ids.length
 );
 

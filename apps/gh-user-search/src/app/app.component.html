@@ -45,6 +45,7 @@
   </div>
 
   <ng-container *ngIf="(usersLoaded$ | async); else loadingTempate">
+    {{hasNoMoreResults$ | async}}
     <h1 id="search-results" class="search-results-title">
       Search Results
       <div class="custom-badge" aria-describedby="search-results">
@@ -55,6 +56,7 @@
       infinite-scroll
       [infiniteScrollDistance]="2"
       [infiniteScrollThrottle]="150"
+      [infiniteScrollDisabled]="hasNoMoreResults$ | async"
       (scrolled)="searchResultsScrolled()">
       <div class="result"
         *ngFor="let user of users$ | async"

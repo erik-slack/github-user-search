@@ -14,6 +14,7 @@ export class UsersFacade {
   detailLoaded$ = this.store.pipe(select(UsersSelectors.getUserDetailLoaded));
   totalCount$ = this.store.pipe(select(UsersSelectors.getTotalCount));
   error$ = this.store.pipe(select(UsersSelectors.getUsersError));
+  hasNoMoreResults$ = this.store.pipe(select(UsersSelectors.getHasNoMoreResults));
 
   constructor(private store: Store<fromUsers.UsersPartialState>) {}
 
