@@ -34,9 +34,6 @@ export class UserDetailDialogComponent implements OnInit {
     CommonModule,
     MatDialogModule,
     MatIconModule
-  ],
-  providers: [
-    // {provide: MAT_DIALOG_DATA, useValue: MatDialog}
   ]
 })
 class UserDetailDialogModule { }
